@@ -1,0 +1,33 @@
+#include "shell.h"
+
+/**
+ * main - Entry point for the simple shell.
+ *
+ * Return: Always 0.
+ */
+int main(void)
+{
+    data_of_program data;
+
+    data.file_descriptor = STDIN_FILENO;
+    data.input_line = NULL;
+
+    while (1)
+    {
+        write(STDOUT_FILENO, "simple_shell$ ", 14);
+        if (read_input_line(&data) == -1)
+            break;
+
+        /* Your code for handling the command goes here */
+        /* For now, let's just print the input line */
+        write(STDOUT_FILENO, data.input_line, str_length(data.input_line));
+        write(STDOUT_FILENO, "\n", 1);
+    }
+
+    /* Cleanup and exit */
+    if (data.input_line)
+        free(data.input_line);
+
+    return (0);
+}
+
